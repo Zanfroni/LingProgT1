@@ -1,0 +1,57 @@
+grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
+
+generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
+
+Model:
+	haskell+=Haskell*;
+	
+Haskell:
+	'show' expression=Expression;
+	
+Expression:
+	zip=ZIP | '['op=OP']' | '('tab=TAB')' | n=N
+;
+
+ZIP:
+	'(zip' '['op2=OP']' '['op3=OP']' ')'
+;
+
+OP:
+	inside+=INSIDE*
+;
+
+INSIDE:
+	inside2=INSIDE2 INTEGER
+;
+
+terminal INSIDE2:
+	ANY_OTHER | INTEGER ','
+;
+
+TAB:
+	content=CONTENT | add+=ADD*
+;
+
+ADD:
+	add2=ADD2 INTEGER
+;
+
+terminal ADD2:
+	ANY_OTHER | INTEGER '+'
+;
+
+terminal CONTENT:
+	INTEGER '(' ID ')' PRINT
+;
+
+N:
+	integer=INTEGER print=PRINT
+;
+
+terminal INTEGER:
+	INT
+;
+
+terminal PRINT:
+	' ++ " 'ID'!"'
+;
