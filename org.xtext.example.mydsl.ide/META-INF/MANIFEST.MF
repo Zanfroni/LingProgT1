@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: org.xtext.example.mydsl.ide
 Bundle-ManifestVersion: 2
 Bundle-Name: org.xtext.example.mydsl.ide
 Bundle-Vendor: My Company
@@ -10,6 +11,6 @@ Require-Bundle: org.xtext.example.mydsl,
  org.eclipse.xtext.xbase.ide,
  org.antlr.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.xtext.example.mydsl.ide.contentassist.antlr.internal,
- org.xtext.example.mydsl.ide.contentassist.antlr
+Export-Package: org.xtext.example.mydsl.ide.contentassist.antlr,
+ org.xtext.example.mydsl.ide.contentassist.antlr.internal
 

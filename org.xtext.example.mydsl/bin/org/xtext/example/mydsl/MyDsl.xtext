@@ -6,52 +6,46 @@ Model:
 	haskell+=Haskell*;
 	
 Haskell:
-	'show' expression=Expression;
-	
+	'show' expression=Expression
+;
+
 Expression:
-	zip=ZIP | '['op=OP']' | '('tab=TAB')' | n=N
+	complement=Complement (concat=Concat)?
 ;
 
-ZIP:
-	'(zip' '['op2=OP']' '['op3=OP']' ')'
+Complement:
+	  id=ID
+	| '['numbers=Numbers']'
+	| '('function=Function')'
 ;
 
-OP:
-	inside+=INSIDE*
+Function:
+	  element=Element
+	| 'zip' '['numb1=Numbers']' '['numb2=Numbers']'
+	| 'length' '('Complement')'
 ;
 
-INSIDE:
-	inside2=INSIDE2 INTEGER
+Numbers:
+	one=INT ',' numb=Numbers | two=INT
 ;
 
-terminal INSIDE2:
-	ANY_OTHER | INTEGER ','
+
+Concat:
+	'++' (id=ID | op=OP) (new=NewConcat)?
 ;
 
-TAB:
-	content=CONTENT | add+=ADD*
+NewConcat:
+	'++' haskell=Haskell
 ;
 
-ADD:
-	add2=ADD2 INTEGER
+Element:
+	INT (OP INT)*
 ;
 
-terminal ADD2:
-	ANY_OTHER | INTEGER '+'
+terminal OP:
+	'+' | '-' | '/' | '*'
 ;
 
-terminal CONTENT:
-	INTEGER '(' ID ')' PRINT
-;
-
-N:
-	integer=INTEGER print=PRINT
-;
-
-terminal INTEGER:
-	INT
-;
-
-terminal PRINT:
-	' ++ " 'ID'!"'
-;
+@Override
+terminal ID: 
+    '^'?('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'!'|'0'..'9')*;
